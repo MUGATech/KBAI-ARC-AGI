@@ -1,0 +1,25 @@
+# This tells pip to install a cpu only version of pytorch for linux (Ubuntu 22.04)
+#    please consult https://pytorch.org/get-started/locally/ for specifics urls for Windows and MacOS
+
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# keep in mind that Gradescope/Autograder is a headless server with no GPU
+#   so it is recomended that you use the  same setup locally.
+
+# We are not respondsible for failed submissions if you use versions other than the
+#   ones listed here and failed attempts can not be given back or extended
+#
+# If you are not using any specific import you can comment them out if you like
+#   you are not required to use any of these other than numpy
+#   and are included for convenience
+
+numpy==2.3.5
+
+scikit-learn==1.6.1
+scikit-image==0.25.2
+scipy==1.15.2
+pandas==2.2.3
+opencv-contrib-python-headless==4.11.0.86
+
+torch==2.9.1
+torchvision==0.24.1
