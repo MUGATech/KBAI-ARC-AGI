@@ -32,8 +32,6 @@ class ArcAgent:
 
         predictions: list[np.ndarray] = list()
 
-        helloWorld: str = "Hello World!"
-
         '''
         The next 2 lines are only an example of how to populate the predictions list.
         This will just be an empty answer the size of the input data;
