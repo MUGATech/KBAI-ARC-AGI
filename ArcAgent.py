@@ -30,6 +30,8 @@ class ArcAgent:
         marked as INCORRECT.
         """
 
+        
+
         predictions: list[np.ndarray] = list()
 
         '''
@@ -37,7 +39,30 @@ class ArcAgent:
         This will just be an empty answer the size of the input data;
         delete it before you start adding your own predictions.
         '''
-        output = np.zeros_like(arc_problem.test_set().get_input_data().data())
-        predictions.append(output)
+        # output = np.zeros_like(arc_problem.test_set().get_input_data().data())
+        # predictions.append(output)
+        
+        test_input_data = arc_problem.test_set().get_input_data().data()
+        ys, xs = np.nonzero(test_input_data)
+
+        ''' If no non-zero cells exist return np array with 0
+        '''
+        if len(xs) == 0:
+            return predictions
+
+        ''' Get min and max indicides of rows
+        '''
+        ymin, ymax = ys.min(), ys.max()
+
+        ''' Get min and max indicides of columns
+        '''
+        xmin, xmax = xs.min(), xs.max()
+        
+        ''' Crop using numpy slicing
+        '''
+        cropped = test_input_data[ymin:ymax + 1, xmin:xmax + 1]
+
+        predictions.append(cropped);
 
         return predictions
+
