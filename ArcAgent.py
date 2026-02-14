@@ -109,24 +109,34 @@ def stamp_blocks_from_markers(g: Array, marker: int = 5, stamp: int = 1) -> Arra
         out[rr0:rr1, cc0:cc1] = stamp
     return out
 
-
+# errored out in Gradescope..changing the logic
 def mirror_bottom_into_top(g: Array, bg: int = 0) -> Array:
-    """
-    If top rows are empty and bottom rows contain content, mirror the bottom region upward
-    by reversing rows to fill the empty top region.
-    """
     out = g.copy()
+
     non_bg_rows = np.where(np.any(g != bg, axis=1))[0]
     if non_bg_rows.size == 0:
         return out
-    start = int(non_bg_rows[0])  # first active row
+
+    start = int(non_bg_rows[0])   # first active row
     if start <= 0:
         return out
+
     bottom = g[start:, :]
-    need = start
-    fill = bottom[::-1, :][:need, :]
+    need = start                  # how many rows to fill at top
+    br = bottom.shape[0]
+
+    if br == 0:
+        return out
+
+    mirrored = bottom[::-1, :]    # reverse bottom rows
+
+    # Build exactly `need` rows by repeating mirrored rows if necessary
+    idx = np.arange(need) % br
+    fill = mirrored[idx, :]
+
     out[:need, :] = fill
     return out
+
 
 
 def compare_halves_around_separator(
